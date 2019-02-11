@@ -5,23 +5,23 @@
 # Source0 file verified with key 0xDBD2CE893E2D1C87 (cfeck@kde.org)
 #
 Name     : kfourinline
-Version  : 18.08.0
-Release  : 1
-URL      : https://download.kde.org/stable/applications/18.08.0/src/kfourinline-18.08.0.tar.xz
-Source0  : https://download.kde.org/stable/applications/18.08.0/src/kfourinline-18.08.0.tar.xz
-Source99 : https://download.kde.org/stable/applications/18.08.0/src/kfourinline-18.08.0.tar.xz.sig
+Version  : 18.12.2
+Release  : 2
+URL      : https://download.kde.org/stable/applications/18.12.2/src/kfourinline-18.12.2.tar.xz
+Source0  : https://download.kde.org/stable/applications/18.12.2/src/kfourinline-18.12.2.tar.xz
+Source99 : https://download.kde.org/stable/applications/18.12.2/src/kfourinline-18.12.2.tar.xz.sig
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : GFDL-1.2 GPL-2.0 LGPL-2.0
-Requires: kfourinline-bin
-Requires: kfourinline-data
-Requires: kfourinline-license
-Requires: kfourinline-locales
+Requires: kfourinline-bin = %{version}-%{release}
+Requires: kfourinline-data = %{version}-%{release}
+Requires: kfourinline-license = %{version}-%{release}
+Requires: kfourinline-locales = %{version}-%{release}
 BuildRequires : buildreq-cmake
 BuildRequires : buildreq-kde
 BuildRequires : kdnssd-dev
 BuildRequires : libkdegames-dev
-BuildRequires : qtbase-dev qtbase-extras mesa-dev
+BuildRequires : qtbase-dev mesa-dev
 
 %description
 GENERAL NOTE:
@@ -30,8 +30,8 @@ http://games.kde.org/
 %package bin
 Summary: bin components for the kfourinline package.
 Group: Binaries
-Requires: kfourinline-data
-Requires: kfourinline-license
+Requires: kfourinline-data = %{version}-%{release}
+Requires: kfourinline-license = %{version}-%{release}
 
 %description bin
 bin components for the kfourinline package.
@@ -70,27 +70,27 @@ locales components for the kfourinline package.
 
 
 %prep
-%setup -q -n kfourinline-18.08.0
+%setup -q -n kfourinline-18.12.2
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1535228415
-mkdir clr-build
+export SOURCE_DATE_EPOCH=1549866615
+mkdir -p clr-build
 pushd clr-build
 %cmake ..
 make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1535228415
+export SOURCE_DATE_EPOCH=1549866615
 rm -rf %{buildroot}
-mkdir -p %{buildroot}/usr/share/doc/kfourinline
-cp COPYING %{buildroot}/usr/share/doc/kfourinline/COPYING
-cp COPYING.DOC %{buildroot}/usr/share/doc/kfourinline/COPYING.DOC
-cp COPYING.LIB %{buildroot}/usr/share/doc/kfourinline/COPYING.LIB
+mkdir -p %{buildroot}/usr/share/package-licenses/kfourinline
+cp COPYING %{buildroot}/usr/share/package-licenses/kfourinline/COPYING
+cp COPYING.DOC %{buildroot}/usr/share/package-licenses/kfourinline/COPYING.DOC
+cp COPYING.LIB %{buildroot}/usr/share/package-licenses/kfourinline/COPYING.LIB
 pushd clr-build
 %make_install
 popd
@@ -125,6 +125,8 @@ popd
 /usr/share/kfourinline/grafix/yellow.svg
 /usr/share/kfourinline/grafix/yellow_reflection.desktop
 /usr/share/kfourinline/grafix/yellow_reflection.rc
+/usr/share/metainfo/org.kde.kfourinline.appdata.xml
+/usr/share/xdg/kfourinline.categories
 
 %files doc
 %defattr(0644,root,root,0755)
@@ -158,10 +160,10 @@ popd
 /usr/share/doc/HTML/uk/kfourinline/settings.png
 
 %files license
-%defattr(-,root,root,-)
-/usr/share/doc/kfourinline/COPYING
-/usr/share/doc/kfourinline/COPYING.DOC
-/usr/share/doc/kfourinline/COPYING.LIB
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/kfourinline/COPYING
+/usr/share/package-licenses/kfourinline/COPYING.DOC
+/usr/share/package-licenses/kfourinline/COPYING.LIB
 
 %files locales -f kfourinline.lang
 %defattr(-,root,root,-)
